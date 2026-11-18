@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Umrah Quotation Generator | Urwat il Wusqa Travels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest-deep: #0e2e26;
+  --forest: #143d33;
+  --forest-soft: #1d5245;
+  --forest-light: #f1f7f4;
+  --forest-badge: #e4f0e9;
+  
+  --gold: #c29d53;
+  --gold-rich: #a78137;
+  --gold-soft: #fcf9f2;
+  --gold-border: #edd9b2;
+  
+  --ink: #182622;
+  --ink-secondary: #4a5c54;
+  --muted: #798b82;
+  --line: #e3ebe6;
+  --line-subtle: #f0f4f1;
+  --card-bg: #ffffff;
+  --surface: #f9fbf9;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 24px;
+  background: #e5ece7;
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App Wrapper: 2-Column on large screens (Editor Left, Live Sheet Right) */
+.app-container {
+  max-width: 1560px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ADMIN FORM PANEL */
+.admin-panel {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #d4ded8;
+  box-shadow: 0 12px 36px rgba(14, 46, 38, 0.08);
+  position: sticky;
+  top: 24px;
+  max-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.admin-header {
+  padding: 20px 24px 16px;
+  background: linear-gradient(135deg, var(--forest-deep), var(--forest));
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.admin-badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: rgba(194, 157, 83, 0.25);
+  color: #f7e7c4;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(194, 157, 83, 0.4);
+}
+
+.admin-scroll {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.admin-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.admin-scroll::-webkit-scrollbar-thumb {
+  background: #cfdad3;
+  border-radius: 3px;
+}
+
+.form-group-card {
+  background: #f9fbf9;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+}
+.form-group-title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.form-row:last-child {
+  margin-bottom: 0;
+}
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.form-row-3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-secondary);
+}
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  padding: 9px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  border: 1px solid #d2ded7;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  outline: none;
+  transition: all 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--forest);
+  box-shadow: 0 0 0 2px rgba(20, 61, 51, 0.12);
+}
+
+.item-editor-row {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+.item-editor-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-rich);
+}
+.btn-del {
+  background: transparent;
+  border: none;
+  color: #c95050;
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 4px;
+}
+.btn-del:hover {
+  background: #ffebeb;
+}
+.btn-add-item {
+  width: 100%;
+  padding: 9px;
+  background: #ffffff;
+  border: 1px dashed var(--forest);
+  color: var(--forest);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-add-item:hover {
+  background: var(--forest-badge);
+}
+
+.admin-actions {
+  padding: 16px 24px;
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 10px;
+}
+.btn-print {
+  flex: 1;
+  padding: 12px 18px;
+  background: var(--forest);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(14, 46, 38, 0.2);
+  transition: all 0.2s;
+}
+.btn-print:hover {
+  background: var(--forest-deep);
+  transform: translateY(-1px);
+}
+.btn-reset {
+  padding: 12px 14px;
+  background: #f4faf6;
+  border: 1px solid #cce0d5;
+  color: var(--forest);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+.btn-reset:hover {
+  background: #e2f0e8;
+}
+
+/* PREVIEW WRAPPER */
+.preview-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.preview-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #d4ded8;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.preview-status strong {
+  color: var(--forest);
+}
+
+/* THE LUXURY MINIMALIST QUOTATION SHEET */
+.sheet {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(14, 46, 38, 0.1);
+  border: 1px solid #dbe4df;
+  border-radius: 20px;
+}
+
+.topline {
+  height: 6px;
+  background: linear-gradient(90deg, var(--forest-deep) 0%, var(--forest) 25%, var(--gold) 50%, var(--forest) 75%, var(--forest-deep) 100%);
+}
+
+.inner {
+  padding: 44px 56px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Brand Header */
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.brand-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.logo {
+  width: 84px;
+  height: 84px;
+  flex: 0 0 84px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(20, 61, 51, 0.05);
+}
+.logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+}
+.brand-name {
+  margin: 0;
+  color: var(--forest-deep);
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+.tagline {
+  margin: 4px 0 0;
+  color: var(--gold-rich);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+.license-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 4px 11px;
+  border-radius: 20px;
+  background: var(--forest-badge);
+  border: 1px solid #d4e6dc;
+  color: var(--forest-deep);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  width: fit-content;
+}
+.license-pill svg {
+  width: 12px;
+  height: 12px;
+  color: var(--forest);
+}
+
+.quote-badge {
+  text-align: right;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.quote-badge-title {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+.quote-badge-ref {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--forest-deep);
+  margin-top: 3px;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 26px 0 22px;
+}
+.hero-motif {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold);
+  margin-bottom: 7px;
+}
+.hero-motif svg {
+  width: 13px;
+  height: 13px;
+}
+.hero-motif span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-rich);
+}
+.hero h2 {
+  margin: 0;
+  color: var(--forest-deep);
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.subtitle {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+/* Client Details Card */
+.client-bar {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 14px;
+  margin: 0 0 24px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.client-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.client-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.client-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--forest-deep);
+}
+
+/* Section Header */
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  color: var(--forest-deep);
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.section-head .spark {
+  color: var(--gold);
+  font-size: 13px;
+}
+
+/* Table Card */
+.table-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+thead th {
+  padding: 13px 18px;
+  background: #f7faf8;
+  color: var(--forest-deep);
+  text-align: left;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid var(--line);
+}
+thead th.col-cost,
+tbody td.col-cost {
+  text-align: right;
+  width: 170px;
+}
+thead th.col-service {
+  width: 40%;
+}
+thead th.col-details {
+  width: 40%;
+}
+
+tbody tr:not(:last-child) td {
+  border-bottom: 1px solid var(--line-subtle);
+}
+tbody td {
+  padding: 15px 18px;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.service-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.service-icon-box {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--forest-badge);
+  color: var(--forest);
+  border: 1px solid #d4e6dc;
+}
+.service-icon-box svg {
+  width: 15px;
+  height: 15px;
+}
+.service-name {
+  display: block;
+  color: var(--forest-deep);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.service-note {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+.detail-text {
+  color: var(--ink-secondary);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.price-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--forest-deep);
+  padding: 5px 12px;
+  border-radius: 7px;
+  background: #f7faf8;
+  border: 1px solid var(--line);
+  min-width: 120px;
+  text-align: right;
+}
+
+/* TOTAL PACKAGE BAR */
+.total-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--forest-deep) 0%, var(--forest) 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(14, 46, 38, 0.18);
+  border: 1px solid rgba(194, 157, 83, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+.total-bar::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.total-bar::after {
+  content: "✦";
+  position: absolute;
+  right: 120px;
+  top: -24px;
+  font-size: 110px;
+  color: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+.total-info .total-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--gold-border);
+}
+.total-info .total-sub {
+  margin-top: 3px;
+  font-size: 10.5px;
+  color: #bcd0c7;
+}
+.total-amount-box {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+.currency-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold-border);
+}
+.total-amount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+/* STAY CARDS */
+.stay {
+  margin-top: 28px;
+}
+.stay-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.stay-card {
+  text-align: center;
+  padding: 16px 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+.stay-icon {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 8px;
+  border-radius: 8px;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-border);
+  color: var(--gold-rich);
+  display: grid;
+  place-items: center;
+}
+.stay-icon svg {
+  width: 15px;
+  height: 15px;
+}
+.stay-number {
+  color: var(--forest-deep);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+}
+.stay-label {
+  margin-top: 6px;
+  color: var(--ink-secondary);
+  font-size: 9.5px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* NOTE BOX */
+.note {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-border);
+  color: #5c5545;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.note svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  color: var(--gold-rich);
+  margin-top: 2px;
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 9.5px;
+}
+.footer strong {
+  color: var(--forest-deep);
+  letter-spacing: 0.7px;
+}
+.footer-mark {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-rich);
+  font-weight: 700;
+  font-size: 10px;
+}
+
+/* SUBTLE DECOR */
+.decor {
+  position: absolute;
+  pointer-events: none;
+  color: var(--gold);
+  opacity: 0.16;
+  user-select: none;
+}
+.decor.one { right: 24px; top: 140px; font-size: 28px; }
+.decor.two { left: 24px; bottom: 130px; font-size: 24px; }
+
+/* PRINT STYLES: Hides the editor completely, only prints the exact quotation document */
+@page {
+  size: A4;
+  margin: 0;
+}
+@media print {
+  body {
+    padding: 0 !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .admin-panel, .preview-status {
+    display: none !important;
+  }
+  .app-container {
+    display: block !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .sheet {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+  .inner {
+    padding: 34px 46px !important;
+  }
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 1100px) {
+  .app-container {
+    grid-template-columns: 1fr;
+  }
+  .admin-panel {
+    position: static;
+    max-height: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- ================= LEFT: ADMIN INPUT FORM ================= -->
+  <aside class="admin-panel">
+    <div class="admin-header">
+      <h2 class="admin-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Quotation Editor
+      </h2>
+      <span class="admin-badge">Admin Mode</span>
+    </div>
+
+    <div class="admin-scroll">
+      <!-- Client Information -->
+      <div class="form-group-card">
+        <div class="form-group-title">Client &amp; Quotation Details</div>
+        <div class="form-row">
+          <label>Quotation Reference No.</label>
+          <input type="text" id="inpRef" value="UTW-2026-001">
+        </div>
+        <div class="form-row">
+          <label>Client Name</label>
+          <input type="text" id="inpClient" value="Mr Ibrar Ahmad">
+        </div>
+        <div class="form-row-2col">
+          <div>
+            <label>Date</label>
+            <input type="text" id="inpDate" value="18 / 11 / 2026">
+          </div>
+          <div>
+            <label>Package Type</label>
+            <input type="text" id="inpPackage" value="Custom / Economy">
+          </div>
+        </div>
+      </div>
+
+      <!-- Stay Nights -->
+      <div class="form-group-card">
+        <div class="form-group-title">Stay Duration (Nights)</div>
+        <div class="form-row-3col">
+          <div>
+            <label>Total</label>
+            <input type="text" id="inpTotalNights" value="10">
+          </div>
+          <div>
+            <label>Makkah</label>
+            <input type="text" id="inpMakkahNights" value="04">
+          </div>
+          <div>
+            <label>Madinah</label>
+            <input type="text" id="inpMadinahNights" value="06">
+          </div>
+        </div>
+      </div>
+
+      <!-- Line Items / Services -->
+      <div class="form-group-card">
+        <div class="form-group-title">
+          <span>Services &amp; Pricing</span>
+        </div>
+        <div id="serviceListContainer">
+          <!-- Dynamically populated rows -->
+        </div>
+        <button type="button" class="btn-add-item" id="btnAddService">+ Add Another Service</button>
+      </div>
+
+      <!-- Total Cost -->
+      <div class="form-group-card">
+        <div class="form-group-title">Total Package Amount</div>
+        <div class="form-row">
+          <label>Total Price (PKR)</label>
+          <input type="text" id="inpTotalAmount" value="450,000" placeholder="e.g. 450,000 or As per final booking">
+        </div>
+      </div>
+
+      <!-- Custom Note -->
+      <div class="form-group-card">
+        <div class="form-group-title">Important Note / Terms</div>
+        <div class="form-row">
+          <textarea id="inpNote" rows="3">Hotel arrangements and rates are subject to availability at the time of final confirmation and booking. Any fluctuation in airline fares, foreign currency conversion, or visa policies will be adjusted accordingly.</textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="admin-actions">
+      <button class="btn-print" onclick="window.print()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Print / Save PDF
+      </button>
+      <button class="btn-reset" id="btnReset" title="Reset sample data">Reset</button>
+    </div>
+  </aside>
+
+  <!-- ================= RIGHT: LIVE PRINTABLE QUOTATION ================= -->
+  <main class="preview-area">
+    <div class="preview-status">
+      <span>✦ Live Preview: Updates in real-time as you type in the editor</span>
+      <strong>A4 Format</strong>
+    </div>
+
+    <section class="sheet" id="printSheet">
+      <div class="topline"></div>
+      <div class="inner">
+        
+        <!-- Header -->
+        <header class="brand">
+          <div class="brand-left">
+            <div class="logo">
+              <img src="images/logoutw.png" alt="Urwat il Wusqa Travels logo">
+            </div>
+            <div class="brand-copy">
+              <h1 class="brand-name">Urwat il Wusqa Travels</h1>
+              <p class="tagline">Your trusted partner for a blessed journey</p>
+              <div class="license-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.3 2.1 3.1-.1.8 3 2.4 2-1.3 2.8.7 3-2.8 1.4-1.5 2.7-3-.8-2.8 1.3-2-2.4-3-.8.1-3.1L3 12l2.1-2.3-.1-3.1 3-.8 2-2.4z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+                GOVT. LICENSE NO. 8488
+              </div>
+            </div>
+          </div>
+          <div class="quote-badge">
+            <div class="quote-badge-title">Quotation Ref</div>
+            <div class="quote-badge-ref" id="viewRef">UTW-2026-001</div>
+          </div>
+        </header>
+
+        <!-- Hero Title -->
+        <section class="hero">
+          <div class="hero-motif">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 6.8L21 11l-6.6 2.3L12 20l-2.4-6.7L3 11l6.6-2.2z"/></svg>
+            <span>A journey of faith &amp; peace</span>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 6.8L21 11l-6.6 2.3L12 20l-2.4-6.7L3 11l6.6-2.2z"/></svg>
+          </div>
+          <h2>Umrah Quotation</h2>
+          <p class="subtitle">A customized itinerary prepared exclusively for you</p>
+        </section>
+
+        <!-- Client / Quotation Details -->
+        <div class="client-bar">
+          <div class="client-item">
+            <span class="client-label">Prepared For</span>
+            <span class="client-val" id="viewClient">Mr Ibrar Ahmad</span>
+          </div>
+          <div class="client-item">
+            <span class="client-label">Date Issued</span>
+            <span class="client-val" id="viewDate">18 / 11 / 2026</span>
+          </div>
+          <div class="client-item">
+            <span class="client-label">Package Type</span>
+            <span class="client-val" id="viewPackage">Custom / Economy</span>
+          </div>
+        </div>
+
+        <!-- Services & Pricing Table -->
+        <section>
+          <h3 class="section-head"><span class="spark">✦</span> Services &amp; Package Inclusions</h3>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th class="col-service">Service Inclusions</th>
+                  <th class="col-details">Specifications &amp; Route</th>
+                  <th class="col-cost">Amount (PKR)</th>
+                </tr>
+              </thead>
+              <tbody id="viewTableBody">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Total Highlight Card -->
+          <div class="total-bar">
+            <div class="total-info">
+              <div class="total-label">Total Package Quotation</div>
+              <div class="total-sub">All selected services included</div>
+            </div>
+            <div class="total-amount-box">
+              <span class="currency-tag">PKR</span>
+              <span class="total-amount" id="viewTotalAmount">450,000</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Stay Summary Grid -->
+        <section class="stay">
+          <h3 class="section-head"><span class="spark">✦</span> Your Stay At The Holy Cities</h3>
+          <div class="stay-grid">
+            <div class="stay-card">
+              <div class="stay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/></svg>
+              </div>
+              <div class="stay-number" id="viewTotalNights">10</div>
+              <div class="stay-label">Total Nights</div>
+            </div>
+            <div class="stay-card">
+              <div class="stay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7M9 9h.01M15 9h.01"/></svg>
+              </div>
+              <div class="stay-number" id="viewMakkahNights">04</div>
+              <div class="stay-label">Nights in Makkah Pak</div>
+            </div>
+            <div class="stay-card">
+              <div class="stay-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7M9 9h.01M15 9h.01"/></svg>
+              </div>
+              <div class="stay-number" id="viewMadinahNights">06</div>
+              <div class="stay-label">Nights in Madinah Pak</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Important Note Box -->
+        <div class="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg>
+          <span id="viewNote">Hotel arrangements and rates are subject to availability at the time of final confirmation and booking. Any fluctuation in airline fares, foreign currency conversion, or visa policies will be adjusted accordingly.</span>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <span><strong>URWAT IL WUSQA TRAVELS</strong> &nbsp;·&nbsp; GOVT. APPROVED LICENSE NO. 8488</span>
+          <span class="footer-mark">May your journey be accepted &amp; blessed <span>✦</span></span>
+        </footer>
+
+      </div>
+      <div class="decor one">✧</div>
+      <div class="decor two">✦</div>
+    </section>
+  </main>
+
+</div>
+
+<script>
+// Default Initial Services
+const initialServices = [
+  {
+    type: 'visa',
+    name: 'Umrah Visa',
+    subtitle: 'Electronic visa processing & insurance',
+    details: 'Complete processing with private transport',
+    cost: 'PKR —————'
+  },
+  {
+    type: 'hotel',
+    name: 'Hotel Accommodation',
+    subtitle: 'Makkah & Madinah hotel reservations',
+    details: 'As per client discussion & room category',
+    cost: 'PKR —————'
+  },
+  {
+    type: 'flight',
+    name: 'Air Ticket',
+    subtitle: 'Confirmed return flight booking',
+    details: 'Saudi Airlines (Direct / Return)',
+    cost: 'PKR —————'
+  }
+];
+
+let services = JSON.parse(localStorage.getItem('utw_services') || 'null') || [...initialServices];
+
+// Icons for different service types
+function getServiceSvg(type) {
+  if (type === 'flight') {
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>`;
+  }
+  if (type === 'hotel') {
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7M9 9h.01M15 9h.01"/></svg>`;
+  }
+  if (type === 'transport') {
+    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>`;
+  }
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+}
+
+// Render the editor rows
+function renderEditorRows() {
+  const container = document.getElementById('serviceListContainer');
+  container.innerHTML = '';
+  
+  services.forEach((s, idx) => {
+    const row = document.createElement('div');
+    row.className = 'item-editor-row';
+    row.innerHTML = `
+      <div class="item-editor-head">
+        <span class="item-num">Item #${idx + 1}</span>
+        ${services.length > 1 ? `<button type="button" class="btn-del" onclick="removeService(${idx})">✕ Remove</button>` : ''}
+      </div>
+      <div class="form-row-2col">
+        <div>
+          <label>Service Title</label>
+          <input type="text" value="${escapeHtml(s.name)}" oninput="updateService(${idx}, 'name', this.value)">
+        </div>
+        <div>
+          <label>Category Icon</label>
+          <select onchange="updateService(${idx}, 'type', this.value)">
+            <option value="visa" ${s.type === 'visa' ? 'selected' : ''}>Visa / General</option>
+            <option value="hotel" ${s.type === 'hotel' ? 'selected' : ''}>Hotel / Stay</option>
+            <option value="flight" ${s.type === 'flight' ? 'selected' : ''}>Air Ticket / Flight</option>
+            <option value="transport" ${s.type === 'transport' ? 'selected' : ''}>Private Transport</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Sub-title / Note</label>
+        <input type="text" value="${escapeHtml(s.subtitle)}" oninput="updateService(${idx}, 'subtitle', this.value)">
+      </div>
+      <div class="form-row-2col">
+        <div>
+          <label>Route / Details</label>
+          <input type="text" value="${escapeHtml(s.details)}" oninput="updateService(${idx}, 'details', this.value)">
+        </div>
+        <div>
+          <label>Cost / Status</label>
+          <input type="text" value="${escapeHtml(s.cost)}" oninput="updateService(${idx}, 'cost', this.value)" placeholder="e.g. 185,000 or Included">
+        </div>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+  
+  renderSheetTable();
+  saveState();
+}
+
+// Render the live preview table
+function renderSheetTable() {
+  const tbody = document.getElementById('viewTableBody');
+  tbody.innerHTML = '';
+
+  services.forEach(s => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <div class="service-cell">
+          <div class="service-icon-box">
+            ${getServiceSvg(s.type)}
+          </div>
+          <div>
+            <span class="service-name">${escapeHtml(s.name)}</span>
+            <span class="service-note">${escapeHtml(s.subtitle)}</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <span class="detail-text">${escapeHtml(s.details)}</span>
+      </td>
+      <td class="col-cost">
+        <div class="price-pill">${escapeHtml(s.cost)}</div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateService(idx, key, val) {
+  services[idx][key] = val;
+  renderSheetTable();
+  saveState();
+}
+
+function removeService(idx) {
+  services.splice(idx, 1);
+  renderEditorRows();
+}
+
+document.getElementById('btnAddService').addEventListener('click', () => {
+  services.push({
+    type: 'transport',
+    name: 'Private Transport',
+    subtitle: 'VIP GMC / Hiace transfer',
+    details: 'Jeddah Airport - Makkah - Madinah',
+    cost: 'Included'
+  });
+  renderEditorRows();
+});
+
+// Sync Single Input Fields
+function bindSync(inputId, viewId, storageKey) {
+  const input = document.getElementById(inputId);
+  const view = document.getElementById(viewId);
+  
+  const saved = localStorage.getItem(storageKey);
+  if (saved !== null) {
+    input.value = saved;
+    if (view) view.innerText = saved;
+  }
+  
+  input.addEventListener('input', (e) => {
+    if (view) view.innerText = e.target.value;
+    localStorage.setItem(storageKey, e.target.value);
+  });
+}
+
+function saveState() {
+  localStorage.setItem('utw_services', JSON.stringify(services));
+}
+
+function escapeHtml(str) {
+  return (str || '').replace(/[&<>"']/g, function(m) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[m];
+  });
+}
+
+// Bind all inputs
+bindSync('inpRef', 'viewRef', 'utw_ref');
+bindSync('inpClient', 'viewClient', 'utw_client');
+bindSync('inpDate', 'viewDate', 'utw_date');
+bindSync('inpPackage', 'viewPackage', 'utw_package');
+bindSync('inpTotalNights', 'viewTotalNights', 'utw_nights_total');
+bindSync('inpMakkahNights', 'viewMakkahNights', 'utw_nights_makkah');
+bindSync('inpMadinahNights', 'viewMadinahNights', 'utw_nights_madinah');
+bindSync('inpTotalAmount', 'viewTotalAmount', 'utw_total_amt');
+bindSync('inpNote', 'viewNote', 'utw_note');
+
+// Initial boot
+renderEditorRows();
+
+// Reset Button
+document.getElementById('btnReset').addEventListener('click', () => {
+  if (confirm('Reset quotation details back to default template?')) {
+    localStorage.clear();
+    location.reload();
+  }
+});
+</script>
+
+</body>
+</html>
